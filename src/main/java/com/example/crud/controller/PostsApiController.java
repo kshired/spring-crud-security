@@ -1,18 +1,14 @@
 package com.example.crud.controller;
 
 import com.example.crud.config.MyUserDetails;
-import com.example.crud.domain.Posts;
-import com.example.crud.domain.User;
 import com.example.crud.dto.PostsResponseDto;
 import com.example.crud.dto.PostsSaveRequestDto;
 import com.example.crud.dto.PostsUpdateRequestDto;
 import com.example.crud.service.PostsService;
-import com.example.crud.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RestController

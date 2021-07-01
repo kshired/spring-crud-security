@@ -1,7 +1,6 @@
 package com.example.crud.dto;
 
 import com.example.crud.domain.Posts;
-import com.example.crud.domain.User;
 import lombok.Getter;
 
 import java.beans.ConstructorProperties;

@@ -1,6 +1,5 @@
 package com.example.crud.service;
 
-import com.example.crud.config.MyUserDetails;
 import com.example.crud.domain.Posts;
 import com.example.crud.domain.User;
 import com.example.crud.dto.PostsListResponseDto;
@@ -8,15 +7,10 @@ import com.example.crud.dto.PostsResponseDto;
 import com.example.crud.dto.PostsSaveRequestDto;
 import com.example.crud.dto.PostsUpdateRequestDto;
 import com.example.crud.repository.PostsRepository;
-import com.example.crud.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.HttpClientErrorException;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
