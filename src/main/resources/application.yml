@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/crud
+    username: sa
+    password:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+  redis:
+    port: 6379
+    host: localhost
+
+logging:
+  level:
+    org.hibernate.SQL: debug
