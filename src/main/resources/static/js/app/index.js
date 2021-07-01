@@ -19,7 +19,11 @@ var main = {
 
         $('#btn-comment').on('click',function (){
             _this.comment();
-        })
+        });
+
+        // $('#btn-comment-delete').on('click',function (){
+        //     _this.comment_delete();
+        // })
     },
     save : function () {
         var data = {
@@ -92,6 +96,19 @@ var main = {
         }).done(function() {
             alert('글이 삭제되었습니다.');
             window.location.href = '/';
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+    comment_delete : function (id){
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/comments/'+id,
+            dataType: 'json',
+            contentType:'application/json; charset=utf-8'
+        }).done(function() {
+            alert('댓글이 삭제되었습니다.');
+            window.location.reload();
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

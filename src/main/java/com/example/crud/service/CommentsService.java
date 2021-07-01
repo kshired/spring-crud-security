@@ -33,6 +33,17 @@ public class CommentsService {
         return comments.getId();
     }
 
+    @Transactional
+    public Long delete(Long id, String username){
+        Comments comments = commentsRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("없어요"));
+        if(comments.getUser().getUsername().equals(username)) {
+            commentsRepository.delete(comments);
+            return id;
+        } else{
+            throw new IllegalArgumentException("없어요");
+        }
+    }
+
 
     public List<CommentsResponseDto> findCommentsByPostId(Long postId){
        return commentsRepository

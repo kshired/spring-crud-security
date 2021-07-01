@@ -3,12 +3,13 @@
 <div th:replace="fragments/header :: header"></div>
 
 
-<h1>CRUD</h1>
-<div sec:authorize="isAuthenticated()">
-    <span sec:authentication="name"></span>님 안녕하세요.
-</div>
+
 <div class="col-md-12">
-    <div class="row">
+    <h1>게시판</h1>
+    <div sec:authorize="isAuthenticated()">
+        <span sec:authentication="name"></span>님 안녕하세요.
+    </div>
+    <div class="row" style="margin-bottom: 10px;">
         <div class="col-md-6">
             <a sec:authorize="isAuthenticated()" href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
             <a sec:authorize="isAuthenticated()" href="/logout" role="button" class="btn btn-danger">로그아웃</a>

@@ -38,7 +38,7 @@ public class IndexController {
         model.addAttribute("post",dto);
         model.addAttribute("comments",comments);
 
-        return "posts-update";
+        return "posts-detail";
     }
 
     @GetMapping("/join")
@@ -50,4 +50,6 @@ public class IndexController {
     public String login(){
         return "login";
     }
+
+
 }
