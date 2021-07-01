@@ -41,10 +41,10 @@ public class PostsService {
         }
     }
 
-    public PostsResponseDto findById(Long id) {
+    public Posts findById(Long id) {
         Posts post = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        return new PostsResponseDto(post);
+        return post;
     }
 
 

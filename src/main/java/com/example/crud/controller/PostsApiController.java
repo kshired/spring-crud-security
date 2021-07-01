@@ -17,6 +17,7 @@ public class PostsApiController {
 
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto, @AuthenticationPrincipal MyUserDetails user){
+        System.out.println(user.getId());
         return postsService.save(requestDto,user.getUsername());
     }
 
@@ -27,7 +28,7 @@ public class PostsApiController {
 
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id){
-        return postsService.findById(id);
+        return new PostsResponseDto(postsService.findById(id));
     }
 
     @DeleteMapping("/api/v1/posts/{id}")

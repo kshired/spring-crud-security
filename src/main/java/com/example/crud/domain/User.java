@@ -24,6 +24,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Posts> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Comments> comments = new ArrayList<>();
+
     @Builder
     public User(String username, String password){
         this.username = username;
@@ -33,5 +36,10 @@ public class User {
     public void addPost(Posts post){
         this.posts.add(post);
         post.setUser(this);
+    }
+
+    public void addComments(Comments comments){
+        this.comments.add(comments);
+        comments.setUser(this);
     }
 }

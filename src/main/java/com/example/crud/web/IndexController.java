@@ -1,7 +1,9 @@
 package com.example.crud.web;
 
+import com.example.crud.dto.CommentsResponseDto;
 import com.example.crud.dto.PostsListResponseDto;
 import com.example.crud.dto.PostsResponseDto;
+import com.example.crud.service.CommentsService;
 import com.example.crud.service.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IndexController {
     private final PostsService postsService;
+    private final CommentsService commentsService;
 
     @GetMapping("/")
     public String index(Model model){
@@ -30,8 +33,10 @@ public class IndexController {
 
     @GetMapping("/posts/update/{id}")
     public String postsUpdate(@PathVariable("id") Long id, Model model){
-        PostsResponseDto dto = postsService.findById(id);
+        PostsResponseDto dto = new PostsResponseDto(postsService.findById(id));
+        List<CommentsResponseDto> comments = commentsService.findCommentsByPostId(id);
         model.addAttribute("post",dto);
+        model.addAttribute("comments",comments);
 
         return "posts-update";
     }

@@ -14,7 +14,6 @@ public class PostsListResponseDto {
     private String author;
     private String modifiedDate;
 
-    @ConstructorProperties({"@class","id","title","author","modifiedDate"})
     public PostsListResponseDto(Posts entity){
         this.id = entity.getId();
         this.title = entity.getTitle();
