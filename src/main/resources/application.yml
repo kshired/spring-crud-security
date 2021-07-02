@@ -1,9 +1,10 @@
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/crud
-    username: sa
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/crud?serverTimezone=UTC&characterEncoding=UTF-8
+    username: crud
+    password: Crud123!
+
   jpa:
     properties:
       hibernate:

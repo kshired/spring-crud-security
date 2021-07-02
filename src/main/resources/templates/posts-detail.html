@@ -3,50 +3,57 @@
 <div th:replace="fragments/header :: header"></div>
 
 
-
-<div class="col-md-12">
-  <div class="col-md-4">
+<div class="container-fluid">
     <h1>게시글</h1>
     <form>
-      <div class="form-control" id="id" th:text="${post.id}" style="display:none;"></div>
-      <div class="form-group">
-        <label for="title">제목</label>
-        <div class="form-control" id="title" th:text="${post.title}" ></div>
-      </div>
-      <div class="form-group">
-        <label for="author"> 작성자 </label>
-        <div class="form-control" id="author" th:text="${post.author}" ></div>
-      </div>
-      <div class="form-group">
-        <label for="content-detail"> 내용 </label>
-        <div style="height: 250px;" class="form-control" id="content-detail" th:utext="${post.content}" ></div>
-      </div>
+        <div class="form-control" id="id" th:text="${post.id}" style="display:none;"></div>
+        <div class="form-group">
+            <label for="title">제목</label>
+            <div class="form-control" id="title" th:text="${post.title}"></div>
+        </div>
+        <div class="form-group">
+            <label for="author"> 작성자 </label>
+            <div class="form-control" id="author" th:text="${post.author}"></div>
+        </div>
+        <div class="form-group">
+            <label for="content-detail"> 내용 </label>
+            <div style="height: 250px;" class="form-control" id="content-detail" th:utext="${post.content}"></div>
+        </div>
     </form>
     <form>
-      <label for="comment">댓글</label>
-      <input type="text" class="form-control" id="comment" sec:authorize="isAuthenticated()" />
-      <button style="margin: 5px 0 5px 0;" type="button" sec:authorize="isAuthenticated()" class="btn btn-primary" id="btn-comment">댓글작성</button>
-      <table class="table table-horizontal table-bordered">
-        <thead class="thead-strong">
-        <tr>
-          <th>댓글 작성자</th>
-          <th>댓글 내용</th>
-          <th>기능</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
-        <tr th:each="comment: ${comments}">
-          <td th:text="${comment.author}"></td>
-          <td th:text="${comment.content}"> </td>
-          <td><button type="button" th:attr="onclick=|main.comment_delete('${comment.id}')|" sec:authorize="isAuthenticated()" th:if="${#authentication.getName()} == ${comment.author}" class="btn btn-danger" id="btn-comment-delete">삭제</button></td>
-        </tr>
-        </tbody>
-      </table>
+        <label for="comment">댓글</label>
+        <textarea class="form-control" id="comment" sec:authorize="isAuthenticated()"></textarea>
+        <button style="margin: 5px 0 5px 0;" type="button" sec:authorize="isAuthenticated()" class="btn btn-primary"
+                id="btn-comment">댓글작성
+        </button>
+        <table class="table table-horizontal table-bordered">
+            <thead class="thead-strong">
+            <tr>
+                <th>댓글 작성자</th>
+                <th>댓글 내용</th>
+                <th>기능</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            <tr th:each="comment: ${comments}">
+                <td th:text="${comment.author}"></td>
+                <td style="white-space:pre" th:text="${comment.content}"></td>
+                <td>
+                    <button type="button" th:attr="onclick=|main.comment_delete('${comment.id}')|"
+                            sec:authorize="isAuthenticated()" th:if="${#authentication.getName()} == ${comment.author}"
+                            class="btn btn-danger" id="btn-comment-delete">삭제
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </form>
-    <a  type="button" class="btn btn-default" href="/">뒤로 가기</a>
-    <a class="btn btn-primary" type="button" sec:authorize="isAuthenticated()" th:if="${#authentication.getName()} == *{post.author}" th:href="@{/posts/update/{id} (id=${post.id})}">수정하기</a>
-    <button type="button" sec:authorize="isAuthenticated()" th:if="${#authentication.getName()} == *{post.author}" class="btn btn-danger" id="btn-delete">삭제</button>
-  </div>
+    <a type="button" class="btn btn-default" href="/">뒤로 가기</a>
+    <a class="btn btn-primary" type="button" sec:authorize="isAuthenticated()"
+       th:if="${#authentication.getName()} == *{post.author}" th:href="@{/posts/update/{id} (id=${post.id})}">수정하기</a>
+    <button type="button" sec:authorize="isAuthenticated()" th:if="${#authentication.getName()} == *{post.author}"
+            class="btn btn-danger" id="btn-delete">삭제
+    </button>
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>

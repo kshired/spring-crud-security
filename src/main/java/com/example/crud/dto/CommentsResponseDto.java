@@ -13,5 +13,6 @@ public class CommentsResponseDto {
         this.id = comments.getId();
         this.content = comments.getContent();
         this.author = comments.getUser().getUsername();
+        System.out.println("content = " + content);
     }
 }
