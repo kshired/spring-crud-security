@@ -14,8 +14,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/api/v1/user/sign-up")
-    public void signUp(@RequestBody UserRequestDto requestDto){
-        System.out.println("requestDto = " + requestDto);
-        userService.join(requestDto);
+    public Long signUp(@RequestBody UserRequestDto requestDto){
+        return userService.join(requestDto);
     }
 }

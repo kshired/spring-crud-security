@@ -20,12 +20,12 @@ public class UserService implements UserDetailsService {
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Transactional
-    public void join(UserRequestDto requestDto){
+    public Long join(UserRequestDto requestDto){
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
         requestDto.setPassword(encodedPassword);
 
         User user = requestDto.toEntity();
-        userRepository.save(user);
+        return userRepository.save(user).getId();
     }
 
     public User findByUsername(String username) throws UsernameNotFoundException{

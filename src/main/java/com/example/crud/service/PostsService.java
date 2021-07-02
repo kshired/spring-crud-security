@@ -3,7 +3,7 @@ package com.example.crud.service;
 import com.example.crud.domain.Posts;
 import com.example.crud.domain.User;
 import com.example.crud.dto.PostsListResponseDto;
-import com.example.crud.dto.PostsResponseDto;
+
 import com.example.crud.dto.PostsSaveRequestDto;
 import com.example.crud.dto.PostsUpdateRequestDto;
 import com.example.crud.repository.PostsRepository;
@@ -48,7 +48,6 @@ public class PostsService {
     }
 
 
-    //@Cacheable(key="#root.methodName", value = "findAllDes")
     public List<PostsListResponseDto> findAllDes() {
         return postsRepository.findAllByOrderByIdDesc()
                 .stream()
