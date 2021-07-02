@@ -1,9 +1,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:replace="fragments/header :: header"></div>
 
-<h1>회원 등록</h1>
 <div class="col-md-12">
     <div class="col-md-4">
+        <h1>회원 가입</h1>
         <form>
             <div class="form-group">
                 <label for="username">아이디</label>
@@ -14,7 +14,7 @@
                 <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요">
             </div>
         </form>
-        <a href="/" role="button" class="btn btn-secondary">취소</a>
+        <a href="/" role="button" class="btn btn-danger">취소</a>
         <button type="button" class="btn btn-primary" id="btn-join">가입</button>
     </div>
 </div>

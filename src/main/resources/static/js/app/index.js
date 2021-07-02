@@ -21,16 +21,15 @@ var main = {
             _this.comment();
         });
 
-        // $('#btn-comment-delete').on('click',function (){
-        //     _this.comment_delete();
-        // })
+        $('#content').summernote({
+            height:250,
+        });
     },
     save : function () {
         var data = {
             title: $('#title').val(),
             content: $('#content').val()
         };
-
         $.ajax({
             type: 'POST',
             url: '/api/v1/posts',
@@ -50,7 +49,7 @@ var main = {
             content: $('#content').val()
         };
 
-        var id = $('#id').val();
+        var id = $('#id').text();
 
         $.ajax({
             type: 'PUT',
@@ -60,7 +59,7 @@ var main = {
             data: JSON.stringify(data)
         }).done(function() {
             alert('글이 수정되었습니다.');
-            window.location.reload();
+            window.location.href = '/posts/'+id;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -70,7 +69,9 @@ var main = {
             content: $('#comment').val()
         };
 
-        var id = $('#id').val();
+        var id = $('#id').text();
+
+        console.log(id);
 
         $.ajax({
             type: 'POST',
@@ -86,7 +87,7 @@ var main = {
         });
     },
     delete : function () {
-        var id = $('#id').val();
+        var id = $('#id').text();
 
         $.ajax({
             type: 'DELETE',

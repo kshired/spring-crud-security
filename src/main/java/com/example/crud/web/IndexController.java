@@ -34,6 +34,14 @@ public class IndexController {
     @GetMapping("/posts/update/{id}")
     public String postsUpdate(@PathVariable("id") Long id, Model model){
         PostsResponseDto dto = new PostsResponseDto(postsService.findById(id));
+        model.addAttribute("post",dto);
+
+        return "posts-update";
+    }
+
+    @GetMapping("/posts/{id}")
+    public String postsDetail(@PathVariable("id") Long id, Model model){
+        PostsResponseDto dto = new PostsResponseDto(postsService.findById(id));
         List<CommentsResponseDto> comments = commentsService.findCommentsByPostId(id);
         model.addAttribute("post",dto);
         model.addAttribute("comments",comments);

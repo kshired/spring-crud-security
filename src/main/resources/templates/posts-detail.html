@@ -8,21 +8,18 @@
   <div class="col-md-4">
     <h1>게시글</h1>
     <form>
-      <div class="form-group">
-        <label for="id">글 번호</label>
-        <input type="text" class="form-control" id="id" th:field="*{post.id}" readonly>
-      </div>
+      <div class="form-control" id="id" th:text="${post.id}" style="display:none;"></div>
       <div class="form-group">
         <label for="title">제목</label>
-        <input type="text" class="form-control" id="title" th:field="*{post.title}" th:readonly="${#authentication.getName()} != *{post.author}">
+        <div class="form-control" id="title" th:text="${post.title}" ></div>
       </div>
       <div class="form-group">
         <label for="author"> 작성자 </label>
-        <input type="text" class="form-control" id="author" th:field="*{post.author}" readonly>
+        <div class="form-control" id="author" th:text="${post.author}" ></div>
       </div>
       <div class="form-group">
-        <label for="content"> 내용 </label>
-        <textarea class="form-control" id="content" th:field="*{post.content}" th:readonly="${#authentication.getName()} != *{post.author}"></textarea>
+        <label for="content-detail"> 내용 </label>
+        <div style="height: 250px;" class="form-control" id="content-detail" th:utext="${post.content}" ></div>
       </div>
     </form>
     <form>
@@ -46,8 +43,8 @@
         </tbody>
       </table>
     </form>
-    <a href="/" role="button" class="btn btn-secondary">뒤로가기</a>
-    <button type="button" sec:authorize="isAuthenticated()" th:if="${#authentication.getName()} == *{post.author}" class="btn btn-primary" id="btn-update">수정</button>
+    <a  type="button" class="btn btn-default" href="/">뒤로 가기</a>
+    <a class="btn btn-primary" type="button" sec:authorize="isAuthenticated()" th:if="${#authentication.getName()} == *{post.author}" th:href="@{/posts/update/{id} (id=${post.id})}">수정하기</a>
     <button type="button" sec:authorize="isAuthenticated()" th:if="${#authentication.getName()} == *{post.author}" class="btn btn-danger" id="btn-delete">삭제</button>
   </div>
 </div>
