@@ -17,7 +17,6 @@ public class PostsListResponseDto {
         this.id = entity.getId();
         this.title = entity.getTitle();
         this.author = entity.getUser().getUsername();
-        // 방금전 < 1 , 1<= N분전< 60, 60 <= 1시간 < 120 .....  < 1440,
         this.modifiedDate = transferTime(entity.getLastModifiedDate());
     }
 

@@ -17,7 +17,6 @@ public class PostsApiController {
 
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto, @AuthenticationPrincipal MyUserDetails user){
-        System.out.println(user.getId());
         return postsService.save(requestDto,user.getUsername());
     }
 

@@ -2,7 +2,6 @@ package com.example.crud.service;
 
 import com.example.crud.domain.Posts;
 import com.example.crud.domain.User;
-import com.example.crud.dto.PostsListResponseDto;
 
 import com.example.crud.dto.PostsSaveRequestDto;
 import com.example.crud.dto.PostsUpdateRequestDto;
@@ -10,13 +9,13 @@ import com.example.crud.repository.PostsRepository;
 import com.example.crud.util.PostSearch;
 import com.example.crud.util.PostSpec;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -30,6 +29,7 @@ public class PostsService {
         Posts post = postsRepository.save(requestDto.toEntity());
         User user = userService.findByUsername(username);
         user.addPost(post);
+        System.out.println(" = " + post.getCreatedDate());
         return post.getId();
     }
 
@@ -62,8 +62,10 @@ public class PostsService {
         }
     }
 
-    public List<PostsListResponseDto> findBySearch(PostSearch postSearch) {
-        Sort sort =  Sort.by(Sort.Order.desc("id"));
+    public Page<Posts> findBySearch(PostSearch postSearch, Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 10, Sort.by(Sort.Order.desc("id")));
+
         Specification<Posts> spec = null;
 
         if (postSearch.getTitle() != null) {
@@ -74,9 +76,6 @@ public class PostsService {
             spec = Specification.where(PostSpec.equalAuthorName(postSearch.getAuthor()));
         }
 
-        return postsRepository.findAll(spec,sort)
-                .stream()
-                .map(PostsListResponseDto::new)
-                .collect(Collectors.toList());
+        return postsRepository.findAll(spec, pageable);
     }
 }

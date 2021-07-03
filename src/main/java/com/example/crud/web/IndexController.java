@@ -1,12 +1,16 @@
 package com.example.crud.web;
 
+import com.example.crud.domain.Posts;
 import com.example.crud.dto.CommentsResponseDto;
 import com.example.crud.dto.PostsListResponseDto;
 import com.example.crud.dto.PostsResponseDto;
 import com.example.crud.service.CommentsService;
 import com.example.crud.service.PostsService;
+import com.example.crud.util.Paging;
 import com.example.crud.util.PostSearch;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,9 +27,13 @@ public class IndexController {
     private final CommentsService commentsService;
 
     @GetMapping("/")
-    public String index(@ModelAttribute("postSearch") PostSearch postSearch, Model model){
-        List<PostsListResponseDto> all = postsService.findBySearch(postSearch);
-        model.addAttribute("posts",all);
+    public String index(@ModelAttribute("postSearch") PostSearch postSearch, Model model, Pageable pageable){
+        Page<Posts> all = postsService.findBySearch(postSearch, pageable);
+        List<PostsListResponseDto> posts = all.stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+        Paging paging = new Paging(all.getTotalPages(), all.getNumber(), all.isFirst(), all.isLast());
+
+        model.addAttribute("posts",posts);
+        model.addAttribute("paging",paging);
         return "index";
     }
 
