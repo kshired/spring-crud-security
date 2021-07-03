@@ -1,9 +1,10 @@
 package com.example.crud.controller;
 
 import com.example.crud.config.MyUserDetails;
-import com.example.crud.domain.Comments;
+
 import com.example.crud.dto.CommentsRequestDto;
 import com.example.crud.service.CommentsService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;

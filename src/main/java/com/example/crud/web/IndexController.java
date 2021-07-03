@@ -5,10 +5,15 @@ import com.example.crud.dto.PostsListResponseDto;
 import com.example.crud.dto.PostsResponseDto;
 import com.example.crud.service.CommentsService;
 import com.example.crud.service.PostsService;
+import com.example.crud.util.PostSearch;
+import com.example.crud.util.PostSpec;
 import lombok.RequiredArgsConstructor;
+import org.dom4j.rule.Mode;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -20,8 +25,8 @@ public class IndexController {
     private final CommentsService commentsService;
 
     @GetMapping("/")
-    public String index(Model model){
-        List<PostsListResponseDto> all = postsService.findAllDes();
+    public String index(@ModelAttribute("postSearch") PostSearch postSearch, Model model){
+        List<PostsListResponseDto> all = postsService.findBySearch(postSearch);
         model.addAttribute("posts",all);
         return "index";
     }

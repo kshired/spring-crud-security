@@ -7,7 +7,10 @@ import com.example.crud.dto.PostsListResponseDto;
 import com.example.crud.dto.PostsSaveRequestDto;
 import com.example.crud.dto.PostsUpdateRequestDto;
 import com.example.crud.repository.PostsRepository;
+import com.example.crud.util.PostSearch;
+import com.example.crud.util.PostSpec;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +66,30 @@ public class PostsService {
             postsRepository.delete(post);
         } else {
             throw new IllegalArgumentException("권한 없음!");
+        }
+    }
+
+    public List<PostsListResponseDto> findBySearch(PostSearch postSearch) {
+        if (postSearch.getTitle() != null) {
+            return postsRepository.findAll(
+                    Specification.where(PostSpec.likePostsTitle(postSearch.getTitle())))
+                    .stream()
+                    .map(PostsListResponseDto::new)
+                    .collect(Collectors.toList());
+        } else if (postSearch.getContent() != null) {
+            return postsRepository.findAll(
+                    Specification.where(PostSpec.likePostsContent(postSearch.getContent())))
+                    .stream()
+                    .map(PostsListResponseDto::new)
+                    .collect(Collectors.toList());
+        } else if (postSearch.getAuthor() != null) {
+            return postsRepository.findAll(
+                    Specification.where(PostSpec.equalAuthorName(postSearch.getAuthor())))
+                    .stream()
+                    .map(PostsListResponseDto::new)
+                    .collect(Collectors.toList());
+        } else {
+            return this.findAllDes();
         }
     }
 }

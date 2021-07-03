@@ -24,6 +24,10 @@ var main = {
         $('#content').summernote({
             height:250,
         });
+
+        $('#search').on('change',function () {
+            $('#query').attr('name',$('#search option:selected').val());
+        })
     },
     save : function () {
         var data = {
