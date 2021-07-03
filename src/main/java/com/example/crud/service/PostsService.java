@@ -29,7 +29,6 @@ public class PostsService {
         Posts post = postsRepository.save(requestDto.toEntity());
         User user = userService.findByUsername(username);
         user.addPost(post);
-        System.out.println(" = " + post.getCreatedDate());
         return post.getId();
     }
 
