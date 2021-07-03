@@ -10,6 +10,7 @@ import com.example.crud.repository.PostsRepository;
 import com.example.crud.util.PostSearch;
 import com.example.crud.util.PostSpec;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,14 +51,6 @@ public class PostsService {
         return post;
     }
 
-
-    public List<PostsListResponseDto> findAllDes() {
-        return postsRepository.findAllByOrderByIdDesc()
-                .stream()
-                .map(PostsListResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
     @Transactional
     public void deleteById(Long id, String username) {
         Posts post = postsRepository.findById(id)
@@ -70,26 +63,20 @@ public class PostsService {
     }
 
     public List<PostsListResponseDto> findBySearch(PostSearch postSearch) {
+        Sort sort =  Sort.by(Sort.Order.desc("id"));
+        Specification<Posts> spec = null;
+
         if (postSearch.getTitle() != null) {
-            return postsRepository.findAll(
-                    Specification.where(PostSpec.likePostsTitle(postSearch.getTitle())))
-                    .stream()
-                    .map(PostsListResponseDto::new)
-                    .collect(Collectors.toList());
+            spec = Specification.where(PostSpec.likePostsTitle(postSearch.getTitle()));
         } else if (postSearch.getContent() != null) {
-            return postsRepository.findAll(
-                    Specification.where(PostSpec.likePostsContent(postSearch.getContent())))
-                    .stream()
-                    .map(PostsListResponseDto::new)
-                    .collect(Collectors.toList());
+            spec = Specification.where(PostSpec.likePostsContent(postSearch.getContent()));
         } else if (postSearch.getAuthor() != null) {
-            return postsRepository.findAll(
-                    Specification.where(PostSpec.equalAuthorName(postSearch.getAuthor())))
-                    .stream()
-                    .map(PostsListResponseDto::new)
-                    .collect(Collectors.toList());
-        } else {
-            return this.findAllDes();
+            spec = Specification.where(PostSpec.equalAuthorName(postSearch.getAuthor()));
         }
+
+        return postsRepository.findAll(spec,sort)
+                .stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

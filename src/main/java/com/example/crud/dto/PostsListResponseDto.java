@@ -3,7 +3,6 @@ package com.example.crud.dto;
 import com.example.crud.domain.Posts;
 import lombok.Getter;
 
-import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
