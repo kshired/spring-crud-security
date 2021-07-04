@@ -6,6 +6,7 @@ import com.example.crud.dto.PostsListResponseDto;
 import com.example.crud.dto.PostsResponseDto;
 import com.example.crud.service.CommentsService;
 import com.example.crud.service.PostsService;
+import com.example.crud.service.UserService;
 import com.example.crud.util.Paging;
 import com.example.crud.util.PostSearch;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 public class IndexController {
     private final PostsService postsService;
     private final CommentsService commentsService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String index(@ModelAttribute("postSearch") PostSearch postSearch, Model model, Pageable pageable){
@@ -71,4 +73,8 @@ public class IndexController {
     }
 
 
+    @GetMapping("/me")
+    public String passwordChange(){
+        return "password";
+    }
 }

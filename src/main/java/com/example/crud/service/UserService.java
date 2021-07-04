@@ -37,9 +37,16 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("없어요 유저가"));
         return new MyUserDetails(user);
+    }
+
+    public void changePassword(String username, String newPassword) {
+        User findUser = this.findByUsername(username);
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        findUser.changePassword(encodedPassword);
     }
 }

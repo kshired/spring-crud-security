@@ -21,6 +21,10 @@ var main = {
             _this.comment();
         });
 
+        $('#btn-password-change').on('click',function (){
+            _this.passwordChange();
+        })
+
         $('#content').summernote({
             height:250,
         });
@@ -124,7 +128,6 @@ var main = {
             password: $('#password').val(),
         };
 
-        console.log(data);
 
         $.ajax({
             type: 'POST',
@@ -138,6 +141,25 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
+    passwordChange : function (){
+        var data = {
+            curPassword: $('#curPassword').val(),
+            newPassword: $('#newPassword').val(),
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/v1/user/password',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+        }).done(function() {
+            alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.");
+            window.location.href = '/logout';
+        }).fail(function()  {
+            alert("현재 비밀번호가 일치하지 않습니다.");
+            window.location.reload();
+        });
+    }
 
 };
 

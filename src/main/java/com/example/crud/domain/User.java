@@ -42,4 +42,8 @@ public class User {
         this.comments.add(comments);
         comments.setUser(this);
     }
+
+    public void changePassword(String password){
+        this.password = password;
+    }
 }
