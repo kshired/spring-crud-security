@@ -4,15 +4,15 @@ spring:
     url: jdbc:mysql://localhost:3306/crud?characterEncoding=UTF-8
     username: crud
     password: Crud123!
-#  jpa:
-#    properties:
-#      hibernate:
-#        format_sql: true
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
   session:
     store-type: jdbc
     jdbc:
       initialize-schema: always
 
-#logging:
-#  level:
-#    org.hibernate.SQL: debug
+logging:
+  level:
+    org.hibernate.SQL: debug
